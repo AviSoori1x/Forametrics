@@ -1,0 +1,30 @@
+
+<table class="table table-hover">
+    <tr>
+        <td>
+            Title: {{feed.title}}
+            <br>
+            Industry: {{feed.industry}}
+            <br>
+            Link: <a  id="Link">{{ feed.link }}<a>
+            <br>
+            <button class="btn btn-outline-primary" style = 'border: 1px solid #4d79ff' onclick="myFunction()" type="button">Shorten & Copy Link</button>
+            <button class="btn btn-outline-primary" style = 'border: 1px solid #4d79ff' type="button">Delete</button>
+        </td>
+    </tr>
+</table>
+<script>
+function myFunction() {
+/* Get the text field */
+var copyText = document.getElementById("Link");
+
+/* Select the text field */
+copyText.select();
+
+/* Copy the text inside the text field */
+document.execCommand("copy");
+
+/* Alert the copied text */
+alert("Copied the text: " + copyText.value);
+}
+</script>

@@ -1,0 +1,827 @@
+{
+  "rasa_nlu_data": {
+    "common_examples": [
+      {
+        "text": "Find the engagement on Twitter past week",
+        "intent": "engagement",
+        "entities": [
+          {
+            "start": 23,
+            "end": 30,
+            "value": "Twitter",
+            "entity": "socialnetwork"
+          },
+          {
+            "start": 31,
+            "end": 40,
+            "value": "past week",
+            "entity": "period"
+          }
+        ]
+      },
+      {
+        "text": "Find engagement on Facebook for the last month",
+        "intent": "engagement",
+        "entities": [
+          {
+            "start": 19,
+            "end": 27,
+            "value": "Facebook",
+            "entity": "socialnetwork"
+          },
+          {
+            "start": 36,
+            "end": 46,
+            "value": "last month",
+            "entity": "period"
+          }
+        ]
+      },
+      {
+        "text": "Engagement on Facebook for the last week?",
+        "intent": "engagement",
+        "entities": [
+          {
+            "start": 14,
+            "end": 22,
+            "value": "Facebook",
+            "entity": "socialnetwork"
+          },
+          {
+            "start": 31,
+            "end": 40,
+            "value": "last week",
+            "entity": "period"
+          }
+        ]
+      },
+      {
+        "text": "How much was engagement last month on Facebook?",
+        "intent": "engagement",
+        "entities": [
+          {
+            "start": 24,
+            "end": 34,
+            "value": "last month",
+            "entity": "period"
+          },
+          {
+            "start": 38,
+            "end": 46,
+            "value": "Facebook",
+            "entity": "socialnetwork"
+          }
+        ]
+      },
+      {
+        "text": "What was the engagement on Facebook last month?",
+        "intent": "engagement",
+        "entities": [
+          {
+            "start": 27,
+            "end": 35,
+            "value": "Facebook",
+            "entity": "socialnetwork"
+          },
+          {
+            "start": 36,
+            "end": 46,
+            "value": "last month",
+            "entity": "period"
+          }
+        ]
+      },
+      {
+        "text": "What was the percentage engagement on twitter last week?",
+        "intent": "engagement",
+        "entities": [
+          {
+            "start": 38,
+            "end": 45,
+            "value": "twitter",
+            "entity": "socialnetwork"
+          },
+          {
+            "start": 46,
+            "end": 55,
+            "value": "last week",
+            "entity": "period"
+          }
+        ]
+      },
+      {
+        "text": "How many people  interacted with my twitter profile last month?",
+        "intent": "engagement",
+        "entities": [
+          {
+            "start": 36,
+            "end": 43,
+            "value": "twitter",
+            "entity": "socialnetwork"
+          },
+          {
+            "start": 52,
+            "end": 62,
+            "value": "last month",
+            "entity": "period"
+          }
+        ]
+      },
+      {
+        "text": "What was the interaction rate on Facebook?",
+        "intent": "engagement",
+        "entities": [
+          {
+            "start": 33,
+            "end": 41,
+            "value": "Facebook",
+            "entity": "socialnetwork"
+          }
+        ]
+      },
+      {
+        "text": "What was the interaction percentage on Twitter?",
+        "intent": "engagement",
+        "entities": [
+          {
+            "start": 39,
+            "end": 46,
+            "value": "Twitter",
+            "entity": "socialnetwork"
+          }
+        ]
+      },
+      {
+        "text": "How was my Twitter performance last week?",
+        "intent": "engagement",
+        "entities": [
+          {
+            "start": 11,
+            "end": 18,
+            "value": "Twitter",
+            "entity": "socialnetwork"
+          },
+          {
+            "start": 31,
+            "end": 40,
+            "value": "last week",
+            "entity": "period"
+          }
+        ]
+      },
+      {
+        "text": "How was my Facebook performance ",
+        "intent": "engagement",
+        "entities": [
+          {
+            "start": 11,
+            "end": 19,
+            "value": "Facebook",
+            "entity": "socialnetwork"
+          }
+        ]
+      },
+      {
+        "text": "Twitter performance in April 2018 ",
+        "intent": "engagement",
+        "entities": [
+          {
+            "start": 0,
+            "end": 7,
+            "value": "Twitter",
+            "entity": "socialnetwork"
+          },
+          {
+            "start": 23,
+            "end": 33,
+            "value": "April 2018",
+            "entity": "period"
+          }
+        ]
+      },
+      {
+        "text": "Facebook engagement in July 2018",
+        "intent": "engagement",
+        "entities": [
+          {
+            "start": 0,
+            "end": 8,
+            "value": "Facebook",
+            "entity": "socialnetwork"
+          },
+          {
+            "start": 23,
+            "end": 32,
+            "value": "July 2018",
+            "entity": "period"
+          }
+        ]
+      },
+      {
+        "text": "How was my Facebook Engagement last week?",
+        "intent": "engagement",
+        "entities": [
+          {
+            "start": 11,
+            "end": 19,
+            "value": "Facebook",
+            "entity": "socialnetwork"
+          },
+          {
+            "start": 31,
+            "end": 40,
+            "value": "last week",
+            "entity": "period"
+          }
+        ]
+      },
+      {
+        "text": "How did people feel about my posts on Facebook?",
+        "intent": "sentiment",
+        "entities": [
+          {
+            "start": 38,
+            "end": 46,
+            "value": "Facebook",
+            "entity": "socialnetwork"
+          }
+        ]
+      },
+      {
+        "text": "What was the overall sentiment on my Facebook posts?",
+        "intent": "sentiment",
+        "entities": [
+          {
+            "start": 37,
+            "end": 45,
+            "value": "Facebook",
+            "entity": "socialnetwork"
+          }
+        ]
+      },
+      {
+        "text": "What was the overall opinion on my tweets?",
+        "intent": "sentiment",
+        "entities": [
+          {
+            "start": 35,
+            "end": 41,
+            "value": "tweets",
+            "entity": "socialnetwork"
+          }
+        ]
+      },
+      {
+        "text": "What was the overall opinion on my Twitter posts last week?",
+        "intent": "sentiment",
+        "entities": [
+          {
+            "start": 35,
+            "end": 42,
+            "value": "Twitter",
+            "entity": "socialnetwork"
+          },
+          {
+            "start": 49,
+            "end": 58,
+            "value": "last week",
+            "entity": "period"
+          }
+        ]
+      },
+      {
+        "text": "How do people like my posts on Facebook?",
+        "intent": "sentiment",
+        "entities": [
+          {
+            "start": 31,
+            "end": 39,
+            "value": "Facebook",
+            "entity": "socialnetwork"
+          }
+        ]
+      },
+      {
+        "text": "Do people view my content favorably on Facebook?",
+        "intent": "sentiment",
+        "entities": [
+          {
+            "start": 39,
+            "end": 47,
+            "value": "Facebook",
+            "entity": "socialnetwork"
+          }
+        ]
+      },
+      {
+        "text": "What is the general sentiment on my Facebook posts last month?",
+        "intent": "sentiment",
+        "entities": [
+          {
+            "start": 36,
+            "end": 44,
+            "value": "Facebook",
+            "entity": "socialnetwork"
+          },
+          {
+            "start": 51,
+            "end": 61,
+            "value": "last month",
+            "entity": "period"
+          }
+        ]
+      },
+      {
+        "text": "Give me the sentiment on Tweets last month?",
+        "intent": "sentiment",
+        "entities": [
+          {
+            "start": 25,
+            "end": 31,
+            "value": "Tweets",
+            "entity": "socialnetwork"
+          },
+          {
+            "start": 32,
+            "end": 42,
+            "value": "last month",
+            "entity": "period"
+          }
+        ]
+      },
+      {
+        "text": "What was the general opinion on my posts?",
+        "intent": "sentiment",
+        "entities": []
+      },
+      {
+        "text": "How do people feel about my stuff?",
+        "intent": "sentiment",
+        "entities": []
+      },
+      {
+        "text": "Find me the trending hashtags",
+        "intent": "hashtagfind",
+        "entities": []
+      },
+      {
+        "text": "what are the trending hashtags",
+        "intent": "hashtagfind",
+        "entities": []
+      },
+      {
+        "text": "Suggest hashtags",
+        "intent": "hashtagfind",
+        "entities": []
+      },
+      {
+        "text": "what are some suitable hashtags",
+        "intent": "hashtagfind",
+        "entities": []
+      },
+      {
+        "text": "what is trending on Twitter right now",
+        "intent": "hashtagfind",
+        "entities": [
+          {
+            "start": 20,
+            "end": 27,
+            "value": "Twitter",
+            "entity": "socialnetwork"
+          }
+        ]
+      },
+      {
+        "text": "What trending hashtags are there?",
+        "intent": "hashtagfind",
+        "entities": []
+      },
+      {
+        "text": "whAT Are the engagement levels on twitter",
+        "intent": "engagement",
+        "entities": [
+          {
+            "start": 34,
+            "end": 41,
+            "value": "twitter",
+            "entity": "socialnetwork"
+          }
+        ]
+      },
+      {
+        "text": "What is the engagement on Facebook",
+        "intent": "engagement",
+        "entities": [
+          {
+            "start": 26,
+            "end": 34,
+            "value": "Facebook",
+            "entity": "socialnetwork"
+          }
+        ]
+      },
+      {
+        "text": "What is the percentae engagement in TWITTER",
+        "intent": "engagement",
+        "entities": [
+          {
+            "start": 36,
+            "end": 43,
+            "value": "TWITTER",
+            "entity": "socialnetwork"
+          }
+        ]
+      },
+      {
+        "text": "wHAT IS engagement on Facebook please",
+        "intent": "engagement",
+        "entities": [
+          {
+            "start": 22,
+            "end": 30,
+            "value": "Facebook",
+            "entity": "socialnetwork"
+          }
+        ]
+      },
+      {
+        "text": "How favorable are people on my facebook posts?",
+        "intent": "sentiment",
+        "entities": [
+          {
+            "start": 31,
+            "end": 39,
+            "value": "facebook",
+            "entity": "socialnetwork"
+          }
+        ]
+      },
+      {
+        "text": "Suggest some hashtags for TWITTER",
+        "intent": "hashtagfind",
+        "entities": [
+          {
+            "start": 26,
+            "end": 33,
+            "value": "TWITTER",
+            "entity": "socialnetwork"
+          }
+        ]
+      },
+      {
+        "text": "What is the engagement on Twitter",
+        "intent": "engagement",
+        "entities": [
+          {
+            "start": 26,
+            "end": 33,
+            "value": "Twitter",
+            "entity": "socialnetwork"
+          }
+        ]
+      },
+      {
+        "text": "plot user growth",
+        "intent": "plot",
+        "entities": [
+          {
+            "start": 5,
+            "end": 16,
+            "value": "user growth",
+            "entity": "statistical entity"
+          }
+        ]
+      },
+      {
+        "text": "I want to plot engagement",
+        "intent": "plot",
+        "entities": [
+          {
+            "start": 15,
+            "end": 25,
+            "value": "engagement",
+            "entity": "statistical entity"
+          }
+        ]
+      },
+      {
+        "text": "plot likes over last week",
+        "intent": "plot",
+        "entities": [
+          {
+            "start": 16,
+            "end": 25,
+            "value": "last week",
+            "entity": "period"
+          },
+          {
+            "start": 5,
+            "end": 10,
+            "value": "likes",
+            "entity": "statistical entity"
+          }
+        ]
+      },
+      {
+        "text": "plot shares on facebook last month",
+        "intent": "plot",
+        "entities": [
+          {
+            "start": 5,
+            "end": 11,
+            "value": "shares",
+            "entity": "statistical entity"
+          },
+          {
+            "start": 15,
+            "end": 23,
+            "value": "facebook",
+            "entity": "socialnetwork"
+          },
+          {
+            "start": 24,
+            "end": 34,
+            "value": "last month",
+            "entity": "period"
+          }
+        ]
+      },
+      {
+        "text": "engagement plot on facebook ",
+        "intent": "plot",
+        "entities": [
+          {
+            "start": 0,
+            "end": 10,
+            "value": "engagement",
+            "entity": "statistical entity"
+          },
+          {
+            "start": 19,
+            "end": 28,
+            "value": "facebook ",
+            "entity": "socialnetwork"
+          }
+        ]
+      },
+      {
+        "text": "shares plot facebook last month",
+        "intent": "plot",
+        "entities": [
+          {
+            "start": 21,
+            "end": 31,
+            "value": "last month",
+            "entity": "period"
+          },
+          {
+            "start": 12,
+            "end": 20,
+            "value": "facebook",
+            "entity": "socialnetwork"
+          },
+          {
+            "start": 0,
+            "end": 6,
+            "value": "shares",
+            "entity": "statistical entity"
+          }
+        ]
+      },
+      {
+        "text": "comment number over last month PLOT",
+        "intent": "plot",
+        "entities": [
+          {
+            "start": 0,
+            "end": 7,
+            "value": "comment",
+            "entity": "statistical entity"
+          },
+          {
+            "start": 20,
+            "end": 30,
+            "value": "last month",
+            "entity": "period"
+          }
+        ]
+      },
+      {
+        "text": "graph of engagement on facebook",
+        "intent": "plot",
+        "entities": [
+          {
+            "start": 9,
+            "end": 19,
+            "value": "engagement",
+            "entity": "statistical entity"
+          },
+          {
+            "start": 23,
+            "end": 31,
+            "value": "facebook",
+            "entity": "socialnetwork"
+          }
+        ]
+      },
+      {
+        "text": "graph engagement last year",
+        "intent": "plot",
+        "entities": [
+          {
+            "start": 6,
+            "end": 16,
+            "value": "engagement",
+            "entity": "statistical entity"
+          },
+          {
+            "start": 17,
+            "end": 26,
+            "value": "last year",
+            "entity": "period"
+          }
+        ]
+      },
+      {
+        "text": "graph of shares on facebook",
+        "intent": "plot",
+        "entities": [
+          {
+            "start": 9,
+            "end": 15,
+            "value": "shares",
+            "entity": "statistical entity"
+          },
+          {
+            "start": 19,
+            "end": 27,
+            "value": "facebook",
+            "entity": "socialnetwork"
+          }
+        ]
+      },
+      {
+        "text": "chart engagement over last month ",
+        "intent": "plot",
+        "entities": [
+          {
+            "start": 6,
+            "end": 16,
+            "value": "engagement",
+            "entity": "period"
+          },
+          {
+            "start": 22,
+            "end": 33,
+            "value": "last month ",
+            "entity": "statistical entity"
+          }
+        ]
+      },
+      {
+        "text": "shares charted over last month",
+        "intent": "plot",
+        "entities": [
+          {
+            "start": 0,
+            "end": 6,
+            "value": "shares",
+            "entity": "statistical entity"
+          },
+          {
+            "start": 20,
+            "end": 30,
+            "value": "last month",
+            "entity": "period"
+          }
+        ]
+      },
+      {
+        "text": "chart the user growth last week",
+        "intent": "plot",
+        "entities": [
+          {
+            "start": 22,
+            "end": 31,
+            "value": "last week",
+            "entity": "period"
+          },
+          {
+            "start": 10,
+            "end": 21,
+            "value": "user growth",
+            "entity": "statistical entity"
+          }
+        ]
+      },
+      {
+        "text": "chart likes over last week on facebook",
+        "intent": "plot",
+        "entities": [
+          {
+            "start": 6,
+            "end": 11,
+            "value": "likes",
+            "entity": "statistical entity"
+          },
+          {
+            "start": 17,
+            "end": 26,
+            "value": "last week",
+            "entity": "period"
+          },
+          {
+            "start": 30,
+            "end": 38,
+            "value": "facebook",
+            "entity": "socialnetwork"
+          }
+        ]
+      },
+      {
+        "text": "graph how likes have changed this month",
+        "intent": "plot",
+        "entities": [
+          {
+            "start": 10,
+            "end": 15,
+            "value": "likes",
+            "entity": "statistical entity"
+          },
+          {
+            "start": 34,
+            "end": 39,
+            "value": "month",
+            "entity": "period"
+          }
+        ]
+      },
+      {
+        "text": "chart Twitter engagement past week",
+        "intent": "plot",
+        "entities": [
+          {
+            "start": 6,
+            "end": 13,
+            "value": "Twitter",
+            "entity": "socialnetwork"
+          },
+          {
+            "start": 25,
+            "end": 34,
+            "value": "past week",
+            "entity": "period"
+          },
+          {
+            "start": 14,
+            "end": 24,
+            "value": "engagement",
+            "entity": "statistical entity"
+          }
+        ]
+      },
+      {
+        "text": "graph twitter engagement this month",
+        "intent": "plot",
+        "entities": [
+          {
+            "start": 6,
+            "end": 13,
+            "value": "twitter",
+            "entity": "socialnetwork"
+          },
+          {
+            "start": 14,
+            "end": 24,
+            "value": "engagement",
+            "entity": "statistical entity"
+          },
+          {
+            "start": 30,
+            "end": 35,
+            "value": "month",
+            "entity": "period"
+          }
+        ]
+      },
+      {
+        "text": "graph  Twitter engagement",
+        "intent": "plot",
+        "entities": [
+          {
+            "start": 7,
+            "end": 14,
+            "value": "Twitter",
+            "entity": "socialnetwork"
+          },
+          {
+            "start": 15,
+            "end": 25,
+            "value": "engagement",
+            "entity": "statistical entity"
+          }
+        ]
+      }
+    ]
+  }
+}

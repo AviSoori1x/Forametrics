@@ -1,0 +1,747 @@
+{% extends 'bootstrap/base.html' %}
+
+{% block styles %}
+{{super()}}
+<link rel="stylesheet" href="https://cdn.pydata.org/bokeh/release/bokeh-0.13.0.min.css" type="text/css" />
+{% endblock %}
+
+
+{% block title %}
+    {% if title%}{{title}}  Fora{% else %}Welcome to Fora{% endif %}
+{% endblock %}
+
+{% block navbar %}
+    <nav class="nnavbar navbar-light bg-light">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="{{ url_for('main.index') }}"><img src="https://image-store.slidesharecdn.com/0f288636-1020-46c5-9831-0a13bf374d31-original.png" width="55" height="55" class="d-inline-block align-top" alt=""></a>
+                <!--<a class="navbar-brand" href="{{ url_for('main.smart_post') }}"><img src="https://image-store.slidesharecdn.com/0f288636-1020-46c5-9831-0a13bf374d31-original.png" width="55" height="55" class="d-inline-block align-top" alt=""></a>-->
+
+            </div>
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li><a href="{{ url_for('main.index') }}"><span style = "border:1px blue solid; border-radius: 5px;padding: 10px;">Analytics</span></a></li>
+                    <li><a href="{{ url_for('main.twitter') }}"><span style = "border:1px blue solid; border-radius: 5px;padding: 10px;">Authorize Twitter</span></a></li>
+
+
+
+
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    {% if current_user.is_anonymous %}
+                    <li><a href="{{ url_for('auth.login') }}"><span style = "border:1px blue solid; border-radius: 5px;padding: 10px;">Login</span></a></li>
+                    {% else %}
+                    <li><a href="{{ url_for('auth.logout') }}"><span style = "border:1px blue solid; border-radius: 5px;padding: 10px;">Logout</span></a></li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </nav>
+{% endblock %}
+
+{% block content %}
+    <div class="container" style= 'padding: 10px;'>
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for message in messages %}
+            <div class="alert alert-info" role="alert">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+        {% endwith %}
+
+        {# application content needs to be provided in the app_content block #}
+        {% block app_content %}{% endblock %}
+    </div>
+{% endblock %}
+{% block scripts %}
+    {{ super() }}
+    {{ moment.include_moment() }}
+    {{ script|safe }}
+    <script src='https://d3js.org/d3.v4.min.js'></script>
+    <script type="text/javascript" src="https://cdn.pydata.org/bokeh/release/bokeh-0.12.5.min.js"></script>
+<script type="text/javascript" src="https://cdn.pydata.org/bokeh/release/bokeh-api-0.12.5.min.js"></script>
+
+<script>
+
+$('#maximize').click(function(){
+  $('#plot').css({"top":"0","bottom":"0","left":"0","right":"0"});
+});
+</script>
+    <!--end of script-->
+    <script>
+// The loading bar functions-- need to throw in the other variables in a case by casse basis
+  function updateProgress(percentage){
+  $('#pbar_innerdiv').css("width", percentage + "%");
+  $('#pbar_innertext').text(percentage + "%");
+  }
+
+  function animateUpdate(){
+  let now = new Date();
+  let timeDiff = now.getTime() - start.getTime();
+  let perc = Math.round((timeDiff/maxTime)*100);
+  console.log(perc);
+    if (perc <= 100) {
+     updateProgress(perc);
+     setTimeout(animateUpdate, timeoutVal);
+    }
+  }
+//The end of loading bar functions
+
+    var myArray = [
+  "How can I help you?",
+  "How can I be of assistance to you? ",
+  "What can I do for you today?",
+  "Enter your query pertaining to Twitter below and I'll try my best to help.",
+  "Fora at your service. Fire away :)"];
+
+  var endArray = [
+  "Your result is displayed below. Please hit Refresh for a new query.",
+  "The answer to your query will be displayed below, if it isn't already.",
+  "Please wait a few minutes till the result is diplayed in the box below.",
+  "Your result will be ready shortly. Give it 3-5 minutes, if you can. ",
+  "It may take up to 5 minutes to get the final response for your query. Fora appreciates your patience :)"];
+
+  var randomItem = myArray[Math.floor(Math.random()*myArray.length)];
+  document.getElementById('initGreeting').textContent=randomItem;
+
+  var randomItem2 = endArray[Math.floor(Math.random()*myArray.length)];
+  //document.getElementById('endGreeting').textContent=randomItem2;
+
+    function bokehbarchart(data){
+    //  var bar_data = [['dates', 'engagement'],
+    //                 ['2018-06-01', 0],
+    //                 ['2018-06-02', 0],
+    //                 ['2018-06-03', 0],
+    //                 ['2018-07-04', 0.0],
+    //                 ['2018-07-05', 0]];
+      var bar_data = data;
+      var tools = "pan,crosshair,wheel_zoom,box_zoom,reset,save";
+
+      var p1 = Bokeh.Charts.bar(bar_data, {
+          axis_number_format: "0.[00]a",
+          width: 100,
+          bar_width:100,
+          orientation: "vertical",
+          tools: tools
+
+      });
+      Bokeh.Plotting.show(p1,'#translated');
+    };
+
+    function bokehbarchart2(data){
+    //  var bar_data = [['dates', 'engagement'],
+    //                 ['2018-06-01', 0],
+    //                 ['2018-06-02', 0],
+    //                 ['2018-06-03', 0],
+    //                 ['2018-07-04', 0.0],
+    //                 ['2018-07-05', 0]];
+      var bar_data = data;
+      var tools = "pan,crosshair,wheel_zoom,box_zoom,reset,save";
+
+      var p1 = Bokeh.Charts.bar(bar_data, {
+          axis_number_format: "0.[00]a",
+          //height: '100px',
+          width: 100,
+          orientation: "vertical",
+          palette: ['#a1dab4', '#9c9ede'],
+          bar_width:100,
+          tools: tools
+
+      });
+      Bokeh.Plotting.show(p1,'#translated');
+    };
+
+    function bokehbarchart3(data){
+    //  var bar_data = [['dates', 'engagement'],
+    //                 ['2018-06-01', 0],
+    //                 ['2018-06-02', 0],
+    //                 ['2018-06-03', 0],
+    //                 ['2018-07-04', 0.0],
+    //                 ['2018-07-05', 0]];
+      var bar_data = data;
+      var tools = "pan,crosshair,wheel_zoom,box_zoom,reset,save";
+
+      var p1 = Bokeh.Charts.bar(bar_data, {
+          axis_number_format: "0.[00]a",
+          //height: '100px',
+          width: 100,
+          orientation: "vertical",
+          palette: ['#084594', '#2171b5', '#4292c6', '#6baed6'],
+          bar_width:100,
+          tools: tools
+
+      });
+      Bokeh.Plotting.show(p1,'#translated');
+    };
+
+    function sentiment_bar(){
+      var bar_data = [['Category', 'Percentage'],
+                     ['Positive', 60],
+                     ['Negative', 10],
+                     ['Neutral', 30]];
+
+      var tools = "pan,crosshair,wheel_zoom,box_zoom,reset,save";
+
+      var p1 = Bokeh.Charts.bar(bar_data, {
+          axis_number_format: "0.[00]a",
+          orientation: "vertical",
+          tools: tools,
+          height:100
+
+      });
+      Bokeh.Plotting.show(p1,'#translated');
+    };
+
+    function d3graph(){
+
+
+      // make the plot and add some tools
+      var tools = "pan,crosshair,wheel_zoom,box_zoom,reset,save";
+
+      var plot = Bokeh.Plotting.figure({title:'Facebook Engagement by Type', tools: tools, height: 200, width: 200});
+
+      var pie_data = {
+    labels: ['Likes', 'Shares', 'Comments', 'Reactions', 'Clicks'],
+    values: [8, 2, 2, 4,  8],
+    title:'Facebook Engagement by Type'
+        };
+
+      var p1 = Bokeh.Charts.pie(data = pie_data, {outer_radius: 0.7, height: 100});
+
+
+      // Show the plot, appending it to the end of the current
+      // section of the document we are in.
+      Bokeh.Plotting.show(p1,'#translated');
+    };
+
+    function d3graph2(dataL, dataV){
+      var labels = dataL;
+      var values = dataV;
+
+      var plt = Bokeh.Plotting;
+
+      var pie_data = {
+          labels: dataL,
+          values: dataV,
+      };
+
+      var p1 = Bokeh.Charts.pie(pie_data, {
+          outer_radius: 0.8,
+          start_angle: Math.PI / 2
+
+      });
+          Bokeh.Plotting.show(p1,'#translated');
+    };
+
+    function sentimentgraph(){
+
+
+      // make the plot and add some tools
+      var tools = "pan,crosshair,wheel_zoom,box_zoom,reset,save";
+
+      var plot = Bokeh.Plotting.figure({title:'Follower positivity from Oct 8 2018 to Nov 8 2018', tools: tools, height: 200, width: 200});
+
+      var pie_data = {
+    labels: ['Positive interactions', 'Negative interactions', 'Neutral Interactions'],
+    values: [20, 5, 10],
+    title:'Follower positivity from Oct 8 2018 to Nov 8 2018'
+        };
+
+      var p1 = Bokeh.Charts.pie(data = pie_data, {outer_radius: 0.8, height: 80});
+
+
+      // Show the plot, appending it to the end of the current
+      // section of the document we are in.
+      Bokeh.Plotting.show(p1,'#translated');
+    };
+
+
+    let obj = [];
+    let entity_store = {};
+    let missing_entities = [];
+    let counter = 0;
+    let index = 0;
+    let question = '';
+    let intent = 0;
+    let final_data = {}
+
+    let image = new Image();
+    image.src = "{{ url_for('static', filename='loading2.gif') }}"
+    image.onload = function () {
+      console.log('loading gif is ready to go!'); // remove this in production
+    };
+    $("#clickButton").click(function () {
+      let text = $('#toTranslate').val();
+      $('#container').append('<div><p style = "display:inline-block;float: right; clear: both; border:1px LimeGreen solid; border-radius: 10px;padding: 5px;color: white; background-color:LimeGreen;">'+text+'</p></div>');
+      $('#container').animate({
+          scrollTop: $('#container')[0].scrollHeight
+      }, 500);
+
+   });
+   //shit
+
+
+   $('#toTranslate').keypress(function(e){
+        if(e.which == 13  && $('#clickButton').css('display') !== 'none'){//Enter key pressed
+            $('#clickButton').click();//Trigger search button click event
+              translate('#toTranslate', '#translated');
+        }
+    });
+
+    $('#toTranslate').keypress(function(e){
+       if(e.which == 13 && $('#InfoButton').css('display') !== 'none' ){//Enter key pressed
+            $('#InfoButton').click();//Trigger search button click event
+            infoHandle('#toTranslate','#translated');
+       }
+     });
+
+
+
+     document.addEventListener('keyup', function(e){
+       if(e.keyCode == 13)
+        $('#toTranslate').val ('');
+     });
+
+    document.addEventListener('keydown', function(e){
+      if(e.keyCode == 13 && $('#refreshButton').css('display') !== 'none')
+        window.location.reload();
+    });
+    //more shit
+
+    function translate(sourceElem, destElem) {
+      $('#container').animate({
+          scrollTop: $('#container')[0].scrollHeight
+      }, 500);
+        $(destElem).html('<center><img src="{{ url_for('static', filename='loading2.gif') }}"></center>');
+
+        $.post('/translate', {
+            text: $(sourceElem).val()
+        }).done(function(response) {
+            obj = JSON.parse(response['text']);
+            missing_entities = obj['missing_ents'];
+            intent = obj['intent']
+
+            if (obj['missing_ents'].length === 0){
+              //This should connect to the function giving the final solution
+              $("#clickButton").hide();
+              $("#refreshButton").show();
+              let doneMessage  = randomItem2
+              $('#container').append('<div><p style = "display:inline-block; float: left; clear: both;border:1px DodgerBlue solid; border-radius: 10px;padding: 5px; color: white; background-color:DodgerBlue;">'+doneMessage+'</p></div>');
+              final_data = [intent, entity_store, obj["available_entities_dic"]];
+
+              ///////////////////////////////////////////////////////////////
+              // if response['text'][0] === Twitter_searchAI,  show those shit and run the functions wih 4 minutes
+              // Then hide in the else if and spit out the result.
+              // Repeat the same for eng_comparison; engagement_Twitter_type, 3 minutes,
+              //------------------------------------------------
+              $("#loadSpan").show();
+              let start = new Date();
+              var maxTime = 10;
+              //So have conditional time here based on intent or response['text'][0] === etc.
+              if (intent === "greet"){
+                var maxTime = 15000;
+              }else if(intent === "engagement_Twitter_plain"){
+                var maxTime = 180000;
+              }else if(intent === "Twit_follower_count"){
+                var maxTime = 500;
+              }else if(intent === "hashtagfind"){
+                var maxTime = 1000;
+              }else if(intent === 'top_hashtags'){
+                var maxTime = 180000;
+
+              }else if(intent === "top_tweets"){
+                var maxTime = 180000;
+              } else if(intent === 'twitter_percent_type'){
+                var maxTime = 180000;
+                //percentTwitter(response['text'][1], response['text'][2])
+              }  else if(intent === "Twitter_sentiment"){
+                var maxTime = 150000;
+              } else if(intent === "Twit_follower_count"){
+                var maxTime = 15000;
+                //percentTwitter(response['text'][1], response['text'][2])
+              } else if(intent === "Twitter_searchAI"){
+                var maxTime = 220000;
+                //percentTwitter(response['text'][1], response['text'][2])
+              } else if(intent === "eng_comparison"){
+                var maxTime = 250000;
+                //percentTwitter(response['text'][1], response['text'][2])
+              }else{
+                var maxTime = 120000;
+              }
+
+              let timeoutVal = Math.floor(maxTime/100);
+              animateUpdate();
+
+              function updateProgress(percentage){
+              $('#pbar_innerdiv').css("width", percentage + "%");
+              $('#pbar_innertext').text(percentage + "%");
+              }
+
+              function animateUpdate(){
+              let now = new Date();
+              let timeDiff = now.getTime() - start.getTime();
+              let perc = Math.round((timeDiff/maxTime)*100);
+              console.log(perc);
+                if (perc <= 100) {
+                 updateProgress(perc);
+                 setTimeout(animateUpdate, timeoutVal);
+                }
+              }
+              /////////////////////////////////////////////////////////////
+              $.post('/compute', {
+                      //text: JSON.stringify(obj)
+                      //text: JSON.stringify(entity_store)
+                      //'engagement_Twitter_type'
+                      text: JSON.stringify(final_data)
+                  }).done(function(response) {
+                    document.getElementById("toTranslate").style.visibility = "hidden";
+                    document.getElementById("textHelp").style.visibility = "hidden";
+                    $("#loadSpan").hide();
+                      if (response['text'][0] === "TwitterEngagement"){
+                        //$(destElem).text(JSON.stringify(response['text']))
+                        $(destElem).text(response['text'][2])
+                        bokehbarchart(response['text'][1])
+                      }else if(response['text'][0] === "eng_comparison"){
+                        //$(destElem).text(JSON.stringify(response['text'][1]))
+                        //
+                        //$(destElem).text(JSON.stringify(response['text']))
+                        $(destElem).text(response['text'][2])
+                        bokehbarchart(response['text'][1])
+                        //percentTwitter(response['text'][1], response['text'][2])
+                      }else if(response['text'][0] === "hashtagfind"){
+                        $(destElem).text(response['text'][1])
+                      }else if(response['text'][0] === "mediaTwitter"){
+                        //$(destElem).text(JSON.stringify(response['text'][1]))
+                        //
+                        $(destElem).text(JSON.stringify(response['text'][3]))
+                        //d3graph();
+                        d3graph2(response['text'][1], response['text'][2]);
+                        //percentTwitter(response['text'][1], response['text'][2])
+                      }else if(response['text'][0] === 'tophashcomments'){
+
+                        //$(destElem).text(response['text'][1])
+                        let tweetlist = response['text'][1];
+                        //$(destElem).text(tweetlist);
+                        $(destElem).text(' ');
+                        for (var I = 0; I < tweetlist.length; I++)
+                        {
+                             nameList = tweetlist[I] + "<br>";
+                             document.getElementById("translated").innerHTML += nameList;
+                        }
+
+                      }else if(response['text'][0] === "Twitter_sentiment"){
+                        //$(destElem).text(JSON.stringify(response['text'][1]))
+                        //
+                        //$(destElem).text(JSON.stringify(response['text'][3]))
+                        let tweet_list = response['text'][3];
+                        ////This is the part where we print line by line all this stuff
+                        $(destElem).text(' ');
+                        for (var I = 0; I < tweet_list.length; I++)
+                        {
+                             nameList = tweet_list[I] + "<br>";
+                             document.getElementById("translated").innerHTML += nameList;
+                        }
+                        //d3graph();
+                        d3graph2(response['text'][1], response['text'][2]);
+                        //percentTwitter(response['text'][1], response['text'][2])
+                      } else if(response['text'][0] === 'Twitter_searchAI'){
+                        //$(destElem).text(JSON.stringify(response['text'][1]))
+                        //$(destElem).text(JSON.stringify(response['text'][3]))
+                        let tweet_list = response['text'][5];
+                        ////This is the part where we print line by line all this stuff
+                        $(destElem).text(' ');
+                        for (var I = 0; I < tweet_list.length; I++)
+                        {
+                             nameList = tweet_list[I] + "<br>";
+                             document.getElementById("translated").innerHTML += nameList;
+                        }
+                        ////---This ends-----
+                        //$(destElem).text(JSON.stringify(response['text'][4]));
+                        //d3graph();
+                        d3graph2(response['text'][1], response['text'][2]);
+                        bokehbarchart3(response['text'][4])
+
+                        // remove this ASAP, just POC
+
+                        //percentTwitter(response['text'][1], response['text'][2])
+                      } else if(response['text'][0] === 'Twitter_searchAI_compare'){
+                        let tweet_list = response['text'][3];
+                        ////This is the part where we print line by line all this stuff
+                        $(destElem).text(' ');
+                        for (var I = 0; I < tweet_list.length; I++)
+                        {
+                             nameList = tweet_list[I] + "<br>";
+                             document.getElementById("translated").innerHTML += nameList;
+                        }
+                        ////---This ends-----
+                        //$(destElem).text(JSON.stringify(response['text'][4]));
+                        //d3graph();
+                        //d3graph2(response['text'][1], response['text'][2]);
+                        bokehbarchart3(response['text'][2])
+                      } else if(response['text'][0] === "Twit_follower_count"){
+                        //$(destElem).text(JSON.stringify(response['text'][1]))
+                        //
+                        $(destElem).text(JSON.stringify(response['text'][1]))
+                        //d3graph();
+                        bokehbarchart2(response['text'][2])
+                        //percentTwitter(response['text'][1], response['text'][2])
+                      } else if(response['text'][0] === "engagement_Twitter_type"){
+                        //$(destElem).text(JSON.stringify(response['text'][1]))
+                        //
+                        $(destElem).text(JSON.stringify(response['text'][2]))
+                        //d3graph();
+                        bokehbarchart(response['text'][1])
+                        //percentTwitter(response['text'][1], response['text'][2])
+                      } else{
+                        //$(destElem).text(JSON.stringify(response['text']))
+                        $(destElem).text(JSON.stringify(response['text'][0]))
+                        //'Twit_follower_count'
+                      }
+                  }).fail(function() {
+                      $("#loadSpan").hide();
+                      document.getElementById("toTranslate").style.visibility = "hidden";
+                      document.getElementById("textHelp").style.visibility = "hidden";
+                      $(destElem).text("{{'Error'}}");
+                  });
+            }
+            else {
+              //Start of else///////////////////////////////////////////////////////////////////////////////////////
+              //Below this everything is different
+              //Line below is just a check
+              counter = obj['missing_ents'].length;
+              $(destElem).text(counter);
+              question = 'Please provide the ' + obj['missing_ents'][counter-1]+ '.' ;
+              $(destElem).text(' ');
+              $('#container').append('<div><p style = "display:inline-block; float: left; clear: both;border:1px DodgerBlue solid; border-radius: 10px;padding: 5px; color: white; background-color:DodgerBlue;">'+question+'</p></div>');
+              $("#clickButton").hide();
+              $("#InfoButton").show();
+            }//End of else
+
+        }).fail(function() {
+            $(destElem).text("{{'Error: Could not contact server.' }}");
+        });
+    }
+    // put code here to clean webstorage variable on click of refresh button
+    function infoHandle(sourceElem, destElem){
+      $('#container').animate({
+          scrollTop: $('#container')[0].scrollHeight
+      }, 500);
+      $(destElem).html('<center><img src="{{ url_for('static', filename='loading2.gif') }}"></center>');
+      if (counter > 1){
+        $('#container').append('<div><p style = "display:inline-block;float: right; clear: both; border:1px LimeGreen solid; border-radius: 10px;padding: 5px;color: white; background-color:LimeGreen;">'+$(sourceElem).val()+'</p></div>');
+        entity_store[obj['missing_ents'][counter-1]] = $(sourceElem).val();
+        counter = counter-1;
+        question = 'Please provide the ' + obj['missing_ents'][counter-1]+ '.' ;
+        $('#container').append('<div><p style = "display:inline-block; float: left; clear: both;border:1px DodgerBlue solid; border-radius: 10px;padding: 5px; color: white; background-color:DodgerBlue;">'+question+'</p></div>');
+      } else if (counter === 1 ){
+        $('#container').append('<div><p style = "display:inline-block;float: right; clear: both; border:1px LimeGreen solid; border-radius: 10px;padding: 5px;color: white; background-color:LimeGreen;">'+$(sourceElem).val()+'</p></div>');
+        entity_store[obj['missing_ents'][counter-1]] = $(sourceElem).val();
+        counter = counter-1;
+        $('#container').append('<div><p style = "display:inline-block; float: left; clear: both;border:1px DodgerBlue solid; border-radius: 10px;padding: 5px; color: white; background-color:DodgerBlue;">Your result is displayed below. Please hit Refresh for a new query.</p></div>');
+        //final_data = {'intent':intent,'missing': entity_store, 'available' : obj["available_entities_dic"]};
+        final_data = [intent, entity_store, obj["available_entities_dic"]];
+
+        //This is the object compotition code. Object in JS ~ dictionary in python in this case
+        ///////////////////////////////////////////////////////////////
+        //So here the same code structure for the loading bar applies
+        // if response['text'][0] === Twitter_searchAI,  show those shit and run the functions wih 4 minutes
+        // Then hide in the else if and spit out the result.
+        // Repeat the same for eng_comparison; engagement_Twitter_type, 3 minutes,
+        //-----------------------------------------------------------------------------------------
+        $("#loadSpan").show();
+        let start = new Date();
+        var maxTime = 10;
+        //So have conditional time here based on intent or response['text'][0] === etc.
+        if (intent === "greet"){
+          var maxTime = 15000;
+        }else if(intent === "engagement_Twitter_plain"){
+          var maxTime = 180000;
+        }else if(intent === "Twit_follower_count"){
+          var maxTime = 500;
+        }else if(intent === "hashtagfind"){
+          var maxTime = 1000;
+        }else if(intent === 'top_hashtags'){
+          var maxTime = 180000;
+
+        }else if(intent === "top_tweets"){
+          var maxTime = 180000;
+        } else if(intent === 'twitter_percent_type'){
+          var maxTime = 180000;
+          //percentTwitter(response['text'][1], response['text'][2])
+        }  else if(intent === "Twitter_sentiment"){
+          var maxTime = 150000;
+        } else if(intent === "Twit_follower_count"){
+          var maxTime = 15000;
+          //percentTwitter(response['text'][1], response['text'][2])
+        } else if(intent === "Twitter_searchAI"){
+          var maxTime = 220000;
+          //percentTwitter(response['text'][1], response['text'][2])
+        } else if(intent === "eng_comparison"){
+          var maxTime = 250000;
+          //percentTwitter(response['text'][1], response['text'][2])
+        }else{
+          var maxTime = 120000;
+        }
+
+        let timeoutVal = Math.floor(maxTime/100);
+        animateUpdate();
+
+        function updateProgress(percentage){
+        $('#pbar_innerdiv').css("width", percentage + "%");
+        $('#pbar_innertext').text(percentage + "%");
+        }
+
+        function animateUpdate(){
+        let now = new Date();
+        let timeDiff = now.getTime() - start.getTime();
+        let perc = Math.round((timeDiff/maxTime)*100);
+        console.log(perc);
+          if (perc <= 100) {
+           updateProgress(perc);
+           setTimeout(animateUpdate, timeoutVal);
+          }
+        }
+
+        $.post('/compute', {
+                //text: JSON.stringify(obj)
+                //text: JSON.stringify(entity_store)
+                text: JSON.stringify(final_data)
+            }).done(function(response) {
+              document.getElementById("toTranslate").style.visibility = "hidden";
+              document.getElementById("textHelp").style.visibility = "hidden";
+              $("#loadSpan").hide();
+              //$(destElem).text(JSON.stringify(response['text']))
+              if (response['text'][0] === "TwitterEngagement"){
+                $(destElem).text(response['text'][2])
+                bokehbarchart(response['text'][1])
+
+              }else if(response['text'][0] === "eng_comparison"){
+                //$(destElem).text(JSON.stringify(response['text'][1]))
+                //
+                //$(destElem).text(JSON.stringify(response['text']))
+                $(destElem).text(response['text'][2])
+                bokehbarchart(response['text'][1])
+                //percentTwitter(response['text'][1], response['text'][2])
+              }else if(response['text'][0] === "hashtagfind"){
+                $(destElem).text(response['text'][1])
+
+                //bokehbarchart(data)
+            }else if(response['text'][0] === 'tophashcomments'){
+
+              let tweetlist = response['text'][1];
+
+              $(destElem).text(' ');
+              for (var I = 0; I < tweetlist.length; I++)
+              {
+                   nameList = tweetlist[I] + "<br>";
+                   document.getElementById("translated").innerHTML += nameList;
+              }
+
+
+            }else if(response['text'][0] === "mediaTwitter"){
+              $(destElem).text(JSON.stringify(response['text'][3]))
+              //d3graph();
+              d3graph2(response['text'][1], response['text'][2]);
+              //percentTwitter(response['text'][1], response['text'][2])
+            }else if(response['text'][0] === "Twitter_sentiment"){
+              //$(destElem).text(JSON.stringify(response['text'][1]))
+              //
+              //$(destElem).text(JSON.stringify(response['text'][3]))
+              let tweet_list = response['text'][3];
+              ////This is the part where we print line by line all this stuff
+              $(destElem).text(' ');
+              for (var I = 0; I < tweet_list.length; I++)
+              {
+                   nameList = tweet_list[I] + "<br>";
+                   document.getElementById("translated").innerHTML += nameList;
+              }
+              //d3graph();
+              d3graph2(response['text'][1], response['text'][2]);
+              //percentTwitter(response['text'][1], response['text'][2])
+            } else if(response['text'][0] === 'Twitter_searchAI'){
+              let tweet_list = response['text'][5];
+              ////This is the part where we print line by line all this stuff
+              $(destElem).text(' ');
+              for (var I = 0; I < tweet_list.length; I++)
+              {
+                   nameList = tweet_list[I] + "<br>";
+                   document.getElementById("translated").innerHTML += nameList;
+              }
+              ////---This ends-----
+              //$(destElem).text(JSON.stringify(response['text'][4]));
+              //d3graph();
+              d3graph2(response['text'][1], response['text'][2]);
+              bokehbarchart3(response['text'][4])
+            } else if(response['text'][0] === 'Twitter_searchAI_compare'){
+              let tweet_list = response['text'][3];
+              ////This is the part where we print line by line all this stuff
+              $(destElem).text(' ');
+              for (var I = 0; I < tweet_list.length; I++)
+              {
+                   nameList = tweet_list[I] + "<br>";
+                   document.getElementById("translated").innerHTML += nameList;
+              }
+              ////---This ends-----
+              //$(destElem).text(JSON.stringify(response['text'][4]));
+              //d3graph();
+              //d3graph2(response['text'][1], response['text'][2]);
+              bokehbarchart3(response['text'][2])
+            } else if(response['text'][0] === "engagement_Twitter_type"){
+              //$(destElem).text(JSON.stringify(response['text'][1]))
+              //
+              $(destElem).text(JSON.stringify(response['text'][2]))
+              //d3graph();
+              bokehbarchart(response['text'][1])
+              //percentTwitter(response['text'][1], response['text'][2])
+            } else{
+                //$(destElem).text(JSON.stringify(response['text']))
+                $(destElem).text(response['text'][0])
+                //$(destElem).text(JSON.stringify('shit'))
+              }
+            }).fail(function() {
+              $("#loadSpan").hide();
+              document.getElementById("toTranslate").style.visibility = "hidden";
+              document.getElementById("textHelp").style.visibility = "hidden";
+                $(destElem).text("{{'Error'}}");
+            });
+        //$(destElem).text(JSON.stringify(entity_store));
+        $("#InfoButton").hide();
+        $("#refreshButton").show();
+
+      }else{
+
+        //need to throw in a post function here to send data to the final calculation function \
+        // This should be a composite function with the engagement and all the entities put together.
+        // i.e. send_dic = {'intent': 'someEntity', entities: {'This': 'that','Another':'another_value'}}
+      }
+
+    };//end of infoHandle
+
+
+//-------shit-------
+
+//---------
+
+    $(document).ready(function () {
+    $("body").click(function(e) {
+      if($(e.target).attr('id') === "toTranslate") {
+          $("#InitialGreeting").show();
+          $("#loadingGif").show();
+      }
+
+      else {
+          $("#loadingGif").hide();
+      }
+    });
+  });
+  $('#toTranslate').focus(function(){
+    $(this).val('');
+  });
+    </script>
+{% endblock %}

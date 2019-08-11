@@ -1,0 +1,274 @@
+{% extends "base.html" %}
+{% import 'bootstrap/wtf.html' as wtf%}
+
+
+
+{% block scripts %}
+  {{super()}}
+  <script type="text/javascript">
+    $('#Facebook').change(function() {
+        $('#mycheckboxdiv1').slideToggle();
+    });
+    $('#Twitter').change(function() {
+        $('#mycheckboxdiv2').slideToggle();
+    });
+    $('#GooglePlus').change(function() {
+        $('#mycheckboxdiv3').slideToggle();
+    });
+
+    $('#Repeat').change(function() {
+        $('#mycheckboxdiv4').slideToggle();
+    });
+    $("#NoRepeat").click(function() {
+      $('#mycheckboxdiv4').slideUp("slow",);
+  });
+
+  $("#SearchToggle").click(function() {
+    $('#mydiv4').slideDown("slow",);
+  });
+ </script>
+ <script>
+
+ </script>
+{% endblock %}
+
+{% block app_content %}
+
+
+  </br>
+        <div class="col-md-4 col-lg-offset-4">
+          <h3 style = 'color:#0052cc;'>Schedule with Fora</h3>
+
+          <form action="{{url_for('main.post_stuff')}}"  method='get'>
+            <label class="checkbox-inline">
+              <input type="checkbox" name="Facebook" id ='Facebook' value="Facebook" checked> Facebook<br>
+            </label>
+            <label class="checkbox-inline">
+              <input type="checkbox" name="Twitter" id = 'Twitter' value="Twitter"> Twitter<br>
+            </label>
+            <label class="checkbox-inline">
+              <input type="checkbox" name="GooglePlus" id = 'GooglePlus' value="GooglePlus"> LinkedIn<br>
+            </label>
+
+          <div id="mycheckboxdiv1" style="display:true">
+              <br>
+              <p>Enter Facebook content</p>
+
+
+                <textarea name="FacebookMessage" rows="5" cols="60" style='border: 1px solid #4d79ff; border-radius: 10px;'></textarea>
+                <div style =" ">
+                  <label>Upload image/ video</label>
+                  <input name="FacebookImage" type="file" id="myFile">
+                  <br>
+                  <button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#exampleModal" style = 'border: 1px solid #4d79ff'>Discover Content</button>
+                </div>
+
+          </div>
+          <div id="mycheckboxdiv2" style="display:none">
+            <br>
+            <p>Enter Twitter content</p>
+
+
+                <textarea name="TwitterMessage" rows="5" cols="60" style='border: 1px solid #4d79ff;border-radius: 10px;'></textarea>
+                <div style =" ">
+                  <label>Upload image/ video</label>
+                  <input name="TwitterImage" type="file" id="myFile">
+                  <br>
+                  <div style= 'display:inline;'>
+                    <label for="pet-select">Suggested Hashtags:</label>
+
+                                <select name= 'hashtag' id="pet-select">
+                                   <option value="">--Based on location and industry--</option>
+                                   <option value="tag1">#MoneyWise</option>
+                                   <option value="tag2">#PennyPincher</option>
+                                   <option value="tag3">#GoCyclones</option>
+                                   <option value="tag4">#BitcoinorBust</option>
+                                   <option value="tag5">#ForaRocks</option>
+                                </select>
+                  </div>
+                  <br><br>
+                  <button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#exampleModal" style = 'border: 1px solid #4d79ff; border-radius: 5px;'>Discover Content</button>
+                  <br>
+
+                </div>
+
+          </div>
+          <div id="mycheckboxdiv3" style="display:none">
+            <br>
+            <p>Enter LinkedIn content</p>
+
+                <textarea name="GoogleMessage" rows="5" cols="60" style='border: 1px solid #4d79ff;border-radius: 10px;'></textarea>
+                <div style =" ">
+                  <label>Upload image/ video</label>
+                  <input name ='GoogleImage' type="file" id="myFile">
+                  <br>
+                  <button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#exampleModal" style = 'border: 1px solid #4d79ff'>Discover Content</button>
+                  <br>
+
+                </div>
+          </div>
+          <br>
+          <button name='Submit' id='Submit' value='ShareNow' class="btn btn-outline-primary" style = 'border: 1px solid #4d79ff' type="submit">Share now</button>
+          <button name='Submit' id='Submit' value='SmartSchedule' class="btn btn-outline-primary" style = 'border: 1px solid #4d79ff' type="submit">Smart Schedule</button>
+          <button  class="btn btn-outline-primary" style = 'border: 1px solid #4d79ff' type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+            Schedule
+          </button>
+          <div class="collapse" id="collapseExample">
+  <div class="card card-body" style = ''>
+    <br>
+    <!-- How to get current time from javascript-->
+    <input type="datetime-local" id="datetime"
+               name="datetime" value="2018-06-12T19:30"
+               min="2018-06-07T00:00" max="2019-12-14T00:00" />
+
+               <div>
+                 <br>
+               <label>Repeat</label>
+               <div>
+                 <label class="radio-inline"><input type="radio" name="Repeat" id ='Repeat' value="yes" >Yes</label>
+                 <label class="radio-inline"><input type="radio" name="Repeat" id ='NoRepeat' value="no" checked>No</label>
+             </div>
+               <div id="mycheckboxdiv4" style="display:none">
+                 <br>
+                   <label class="radio-inline"><input type="radio" name = 'frequency' value = 'daily' id='daily' checked>Daily</label>
+                   <label name = 'frequency' value = 'weekly' class="radio-inline"><input type="radio" name = 'frequency' value = 'weekly'id='weekly' >Weekly</label>
+                   <label name = 'frequency' value= 'monthly' class="radio-inline"><input name = 'frequency' value = 'monthly' id='monthly' type="radio">Monthly</label>
+                  <br>
+                  <br>
+                   <label for="repeatNo">Number of repeats (10 at most):</label>
+
+                               <select name ="repeats" id="pet-select">
+                                  <option name = 'nrepeat' value="2">2</option>
+                                  <option name = 'nrepeat' value="3">3</option>
+                                  <option name = 'nrepeat' value="4">4</option>
+                                  <option name = 'nrepeat' value="5">5</option>
+                                  <option name = 'nrepeat' value="6">6</option>
+                                  <option name = 'nrepeat' value="7">7</option>
+                                  <option name = 'nrepeat' value="8">8</option>
+                                  <option name = 'nrepeat' value="9">9</option>
+                                  <option name = 'nrepeat' value="10">10</option>
+
+                               </select>
+                </div>
+
+              </div>
+              <br>
+               <button name='Submit' id='Submit' value='Schedule' type="submit" class="btn btn-outline-primary" style = 'border: 1px solid #4d79ff'>Submit</button>
+
+
+  </div>
+
+
+</div>
+
+
+        </div>
+</form>
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Recommended content for you</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <button class="btn btn-outline-primary" style = 'border: 1px solid #4d79ff' type="button">Finance</button>
+            <button class="btn btn-outline-primary" style = 'border: 1px solid #4d79ff' type="button">Local</button>
+            <button class="btn btn-outline-primary" style = 'border: 1px solid #4d79ff' type="button">Mortgage Advice</button>
+            <button class="btn btn-outline-primary" style = 'border: 1px solid #4d79ff' type="button">Lifestyle</button>
+            <br>
+
+            <div class="pre-scrollable" style = "border:1px groove;padding: 0.25%;">
+
+            {% for feed in feeds %}
+              {% include '_feeditem.html' %}
+            {% endfor %}
+
+            </div>
+
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary">Save changes</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal 2-->
+    <div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Integrate RSS or Atom Feed Links</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <label for="email">Enter Feed Link:</label>
+            <input type="email" class="form-control" id="email">
+            <br>
+            <div class="form-group">
+              <label for="exampleFormControlSelect2">Industry or business area</label>
+              <select multiple class="form-control" id="exampleFormControlSelect2">
+                <option>Financial Advice</option>
+                <option>Local Content</option>
+                <option>Quotes and Humor</option>
+                <option>Insurance</option>
+                <option>Mortgage</option>
+              </select>
+              <br>
+              <button type="button" >Add</button>
+            </div>
+            <div class="pre-scrollable" style = "border:1px groove;padding: 0.25%;">
+
+            {% for feed in feeds %}
+              {% include '_feeditem.html' %}
+            {% endfor %}
+
+            </div>
+
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary">Save changes</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal 3-->
+    <div class="modal fade" id="exampleModal3" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Search based Intelligent Analytics</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <label for="email">Ask Fora:</label>
+            <input type="email" class="form-control" id="email">
+            <br>
+
+              <br>
+              <button  id ='SearchToggle' type="button" >Go</button>
+            </div>
+            <div id="mydiv4" style="display:none">
+              <img src='https://media.sproutsocial.com/uploads/facebook-analytics-growth-report4.png'>
+            </div>
+
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Convert to PDF</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,36 @@
+<style>
+.center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 35%;
+}
+.center_text{
+    display: block;
+    margin-left: 42%;
+    margin-right: auto;
+    width: 45%;
+}
+
+</style>
+{% extends "base.html" %}
+{% import 'bootstrap/wtf.html' as wtf%}
+
+
+{% block app_content %}
+
+    <h1 class="center_text" >Ask Fora</h1>
+    <div class =page>
+
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQkV33s5eg0qNpkKCKy34N4fsDHRPgwhlP6M5cJvjp-0Hc7ipps" alt="ForaBot" class="center">
+
+      {{ wtf.quick_form(form) }}
+
+
+
+{{ script|safe }}
+{{ div|safe }}
+
+
+    </div>
+{% endblock %}

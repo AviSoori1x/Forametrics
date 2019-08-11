@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% import 'bootstrap/wtf.html' as wtf %}
+
+{% block app_content %}
+<div align="center">
+ <span style="color: #002b80">
+  <img src="https://image-store.slidesharecdn.com/892ff12f-2095-4356-abc0-c993695dc083-original.png" alt="Fora emblem" style="width:250px;height:350px;">
+    <h1>Sign In</h1>
+    <div class="row">
+        <div class="col-md-4 col-lg-offset-4">
+            {{ wtf.quick_form(form) }}
+        </div>
+    </div>
+    <br>
+    <p>New User? <a href="{{ url_for('auth.register') }}">Click to Register!</a></p>
+    <p>
+        Forgot Your Password?
+        <a href="{{ url_for('auth.reset_password_request') }}">Click to Reset It</a>
+    </p>
+  </span>
+</div>
+{% endblock %}

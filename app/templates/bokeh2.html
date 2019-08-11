@@ -1,0 +1,23 @@
+
+{% extends "base.html" %}
+{% import 'bootstrap/wtf.html' as wtf%}
+
+
+{% block app_content %}
+  <head>
+    <meta charset='utf-8' />
+    <meta http-equiv='content-type' content='text/html; charset=utf-8' />
+
+    <title>Embed Demo</title>
+
+    {{ resources|indent(4)|safe }}
+
+    {{ plot_script|indent(4)|safe }}
+  </head>
+  <body>
+    <!-- A simple form for changing the graph -->
+    <h1>My attempt at embedding a plot</h1>
+    {{ plot_div|indent(4)|safe }}
+    <p> Demonstrates some very simple embedding into a webpage- Iris data</p>
+  </body>
+{% endblock %}

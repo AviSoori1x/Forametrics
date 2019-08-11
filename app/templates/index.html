@@ -1,0 +1,97 @@
+{% extends "base.html" %}
+{% import 'bootstrap/wtf.html' as wtf %}
+{% block scripts %}
+  {{super()}}
+
+{% endblock %}
+
+{% block app_content %}
+<br>
+<div  style = "position: relative; padding: 0.25%; height:180px; width:100%;border-radius: 5px;">
+<div id='container'   style = "overflow:scroll; position: relative; border:3px groove;padding: 0.25%; height:180px; width:100%;border-radius: 5px; ">
+  <span id = 'InitialGreeting' style = "display: none;">
+    <p id = 'initGreeting' style = "display:inline-block; border:1px DodgerBlue solid; border-radius: 10px;padding: 5px; color: white; background-color:DodgerBlue;"> How can I help you? </p>
+  </span>
+</div>
+
+  <span>
+    <img id = 'loadingGif'  style ="position: absolute; bottom: 3px; right: 7px; display: none; width:120px; height: 32px;" src="{{ url_for('static', filename='green_type.gif') }}">
+  </span>
+
+  <!--{% for tweet in tweets %}
+    <div class="list-group">
+       <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+         <div class="d-flex w-1   00 justify-content-between">
+           <img src="{{tweet.headshot_url}}" class="w-12 p-1 float-left image-thumbnail">
+           <h5 class="ml-10 w-75 mb-1">{{ tweet.tweet }}</h5>
+           <small>{{ tweet.created_at }}</small>
+         </div>
+       </a>
+    </div>
+  {% endfor %}-->
+</div>
+<br>
+<form onSubmit="return false;">
+  <div class="form-group">
+    <span id ="toTranslateBefore" >
+      <input type="text" class="form-control" id ="toTranslate"  aria-describedby="querybox" placeholder="Please enter your query">
+    </span>
+    <small id="textHelp1" class="form-text text-muted">Fora will try to answer all queries relevant to Twitter as accurately as possible.</small>
+    <small id="textHelp" class="form-text text-muted">Please be specific for best results. i.e. Provide start and end dates, Twitter handle with '@' appended to the front, desired location when necessary etc.</small>
+  </div>
+   <!--<a href="#"><button type="submit" class="btn btn-primary">Submit</button></a>-->
+   <a id='clickButton' class="btn btn-primary" href="javascript:translate(
+                                '#toTranslate',
+                                '#translated'
+                                );" role="button">Ask Fora</a>
+                                <!--in href throw code to hide the button below, show above, clear web storage and scroll div  -->
+   <a id='refreshButton' class="btn btn-primary" style ="display: none;" href="" role="button">Refresh</a>
+   <a id='InfoButton' class="btn btn-primary" style ="display: none;" href= "javascript: infoHandle('#toTranslate','#translated');" role="button">Provide Info</a>
+
+
+</form>
+<br>
+<!--<button id="shitbutton" type="button" class="btn btn-primary">Primary</button> -->
+<!--<div id="upperdiv" class="pre-scrollable" style = "position: relative; border:3px groove;padding: 0.25%; height:300px; width:100%; border-radius: 5px;">-->
+<div id="upperdiv" class="pre-scrollable" style = "position: relative; border:3px groove;padding: 0.25%; max-height: fit-content; width:100%; resize: vertical; border-radius: 5px;">
+<!-- -->
+
+<span id='loadSpan' style="display: none;">
+<center>
+<div id="pbar_outerdiv" style="width: 300px; height: 20px; border: 1px solid grey; z-index: 1; position: relative; border-radius: 5px; -moz-border-radius: 5px;">
+<div id="pbar_innerdiv" style="background-color: lightblue; float:left; z-index: 2; height: 100%; width: 0%;"></div>
+<div id="pbar_innertext" style="z-index: 3; position: absolute; top: 0; left: 0; width: 100%; height: 100%; color: black; font-weight: bold; text-align: center;">0%</div>
+</div>
+</center>
+</span>
+<!--Delete the shit above -->
+
+    <span id="translated">
+
+    </span>
+    <span>
+      <a id = 'maximize' class="btn btn-info" style ="position: absolute; top: 3px; right:2px; display: none;" role="button">.</a>
+
+    <svg id = 'plot' style = "display: block; margin:auto;"></svg>
+  </span>
+</div>
+<div id="bokeh_ch1" class="floating-box"></div>
+
+<div id="bokeh_ch2" class="floating-box"></div>
+  <span id="response"> <a href="#"></a></span>
+<!--
+    <div class="pre-scrollable" style = "border:1px groove;padding: 0.25%;">
+      {% for tweet in tweets %}
+        <div class="list-group">
+           <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+             <div class="d-flex w-100 justify-content-between">
+               <img src="{{tweet.headshot_url}}" class="w-12 p-1 float-left image-thumbnail">
+               <h5 class="ml-10 w-75 mb-1">{{ tweet.tweet }}</h5>
+               <small>{{ tweet.created_at }}</small>
+             </div>
+           </a>
+        </div>
+      {% endfor %}
+     </div>
+-->
+{% endblock %}

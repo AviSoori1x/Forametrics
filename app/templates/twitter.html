@@ -1,0 +1,24 @@
+
+{% extends "base.html" %}
+{% import 'bootstrap/wtf.html' as wtf%}
+
+
+{% block app_content %}
+  <head>
+    <meta charset='utf-8' />
+    <meta http-equiv='content-type' content='text/html; charset=utf-8' />
+
+    <title>Login and authorize Twitter so that Fora can gather insights for you</title>
+
+
+  </head>
+  <body>
+
+
+    <!-- A simple form for changing the graph -->
+    <center><h3>Please authorize Fora to gather insights from Twitter for you</h3></center>
+    <center><input type="image" src="static/Twitter.png" width="200" height="200" class="btTxt submit" href="" id="TwitterLogin" /></center>
+
+    <center><p> You will be redirected to the analytics page once the authorization is complete</p></center>
+  </body>
+{% endblock %}

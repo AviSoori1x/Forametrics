@@ -1,0 +1,50 @@
+#if request.method == 'GET':
+if request.form.get('Submit')== 'Schedule':
+    schedtime = schedtime_calc(date_out)
+    print('Shitface')
+    token, token_secret = session['token']
+    if TwitterMessage != None:
+        schedule_tweet_task.apply_async(args=[TwitterMessage, consumer_key, consumer_secret, callback,token, token_secret], eta = schedtime)
+    else:
+        pass
+elif request.form.get('Submit')== 'ShareNow':
+    token, token_secret = session['token']
+    if TwitterMessage != None:
+        schedule_tweet_task.apply_async(args=[TwitterMessage, consumer_key, consumer_secret, callback,token, token_secret])
+    else:
+        pass
+else:
+    pass
+return redirect('/index')
+
+#------------Sandbox------------------
+#So None is what is returned when not checked, ticked or whatever
+    if Facebookbox ==None:
+        jojo = 'Shit'
+    else:
+        jojo = 'Beetljuice'
+
+def datetime_convert(d_str):
+  f = '%Y-%m-%d %H:%M:%S'
+  dtimeobj = datetime.datetime.strptime(d_str, f)
+
+def schedtime_calc(d_str):
+    f = '%Y-%m-%d %H:%M:%S'
+    dtimeobj = datetime.datetime.strptime(d_str, f)
+    nowtime = datetime.datetime.now()
+    delta = dtimeobj-nowtime
+    schedtime = datetime.datetime.utcnow() + delta
+    return schedtime
+
+#Schedtime maker
+
+def sched_maker(increment, repeat_no, date_out):
+    schedtimes = []
+    post_date = datetime_convert(date_out)
+    for i in range(0,repeat_no):
+      post_date += datetime.timedelta(days=increment)*i
+      schedtimes.append(schedtime_calc(post_date))
+    return schedtimes
+
+
+Twit_token_last = Twittertokens.query.filter_by(user_id = current_user.id).order_by(Twittertokens.id.desc()).first()
