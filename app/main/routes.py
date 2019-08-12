@@ -2809,8 +2809,8 @@ def TweetSentimentOwn(start_date, end_date, consumer_key, consumer_secret):
         return ['There was an error in answering your query. Could you please rephrase your question with all the required information? to collect myself']
 
 #------------------------
-consumer_key = '79DkJ5kXIDuOir05XoTE0GYWJ'
-consumer_secret = 'VohjomRHuXONbJpNwIaRGY0sEwMRTVImRXWiVYAa3gC2PiJLnL'
+consumer_key = '**'
+consumer_secret = '**'
 callback = 'https://127.0.0.1:5000/twitter_login/twitter/authorized'
 #callback = 'https://forametrics.herokuapp.com/twitter_login/twitter/authorized'
 
@@ -2935,8 +2935,8 @@ def twenter():
         # Consumer:
 
     # Access:
-    #ACCESS_TOKEN  = '397951660-oprjKCCP1xBMi4OMShY4OvFWctmPvC1MPuo9YKfC'
-    #ACCESS_SECRET = 'SIcm6oeSI6q8cNAePFcauQ121Ye1IfuzvujYV0yvNqz4V'
+    #ACCESS_TOKEN  = '**'
+    #ACCESS_SECRET = '**'
     days = 21
 
     auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
