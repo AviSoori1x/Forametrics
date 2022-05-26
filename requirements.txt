@@ -159,7 +159,7 @@ twitter==1.18.0
 twitter-text==3.0
 typing==3.5.3.0
 tzlocal==1.5.1
-ujson==1.35
+ujson==5.2.0
 URLObject==2.4.3
 vaderSentiment==3.2.1
 validators==0.12.2
